@@ -32,12 +32,3 @@ class wordAnswer {
     } 
 }
 
-var temp = new wordAnswer (" ", "apple");
-temp.answerKey.forEach(function(element){
-    console.log("->" + element);
-})
-
-console.log(temp.getAnswerIndex('a'));
-console.log(temp.getAnswerIndex('p'));
-console.log(temp.getAnswerIndex('l'));
-console.log(temp.getAnswerIndex('e'));
