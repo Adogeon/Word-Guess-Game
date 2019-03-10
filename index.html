@@ -2,18 +2,22 @@
 <html lang=us-en>
     <head>
         <meta charset = "UTF-8">
-        <tittle> Guess the Word</tittle>
+        <title> Guess the Word</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="asset/style/style.css">
     </head>
     <body>
-        <h1> Guess the word</h1>
-        <div id=question> Press any key to start ... </div>
-        <div id=answer-display></div>
-        <div id=score-display>
-            <span>You have </span>
-            <span id = score></span>
-            <span> tries!</span>
-        </div>
-        <script type="text/javascript" src="asset\script\script.js"></script>
+        <main>
+            <h1> Guess the Pokemon</h1>
+            <br>
+            <div class="text-center h3" id="question"> Press any key to start ... </div>
+            <div class="jumbotron d-flex justify-content-center" id="answer-display"></div>
+            <div id=score-display>
+                <span>You have </span>
+                <span id = score></span>
+                <span> tries!</span>
+                </div>
+        </main>
+        <script type="text/javascript" src="asset/script/script.js"></script>
     </body>
 </html>
