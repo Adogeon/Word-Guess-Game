@@ -8,15 +8,24 @@
     </head>
     <body>
         <main>
-            <h1> Guess the Pokemon</h1>
+            <h1 class="text-primary"> Guess the Pokemon</h1>
             <br>
             <div class="text-center h3" id="question"> Press any key to start ... </div>
             <div class="jumbotron d-flex justify-content-center" id="answer-display"></div>
-            <div id=score-display>
-                <span>You have </span>
-                <span id = score></span>
-                <span> tries!</span>
+            <div class ="row mt-5">
+                <div class = 'col-md-6' id="game-text">
+                    <div id="score-display">
+                        <span>You have </span>
+                        <span id = "score"></span>
+                        <span> tries!</span>
+                    </div>
+                    <div id='wrong-guess'> Your guess so far: </div>
                 </div>
+                <div class = 'col-md-6 d-flex justify-content-center'>
+                    <button class = "btn btn-primary" id="reset-button">Reset</button>
+                </div>
+            </div>
+           
         </main>
         <script type="text/javascript" src="asset/script/script.js"></script>
     </body>
