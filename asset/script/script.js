@@ -69,22 +69,22 @@ function displayFail() {
     if (fail > 1) {
         document.getElementById('score').textContent = fail;
     } else if (fail === 1) {
-        var scoreBoardEle = document.getElementById('score');
+        var scoreBoardEle = document.getElementById('score-display');
         while(scoreBoardEle.firstChild) {
             scoreBoardEle.removeChild(scoreBoardEle.firstChild);
         }
         var warnEle = document.createElement('span')
-        var warnText = document.createTextNode("Be carefule! You only have 1 try left")
+        var warnText = document.createTextNode("Be careful! You only have 1 try left")
         warnEle.appendChild(warnText)
         scoreBoardEle.appendChild(warnEle);
     } else if (fail === 0) {
         state = 1;
-        var scoreBoardEle = document.getElementById('score');
+        var scoreBoardEle = document.getElementById('score-display');
         while(scoreBoardEle.firstChild) {
             scoreBoardEle.removeChild(scoreBoardEle.firstChild);
         }
         var warnEle = document.createElement('span')
-        var warnText = document.createTextNode("Be carefule! You only have 1 try left")
+        var warnText = document.createTextNode("You have lost! ")
         warnEle.appendChild(warnText)
         scoreBoardEle.appendChild(warnEle);
     }
@@ -121,7 +121,9 @@ displayWord(currentWord);
 displayBox(currentWord);
 displayFail();
 
-//keyEventListener to check for the answer 
+//oldAnswer var to check for win
+var oldAnswer = [];
+//keyEventListener to check for the answer
 document.addEventListener("keyup", function(event) {
     //check if state is playing (0) 
     if (state !== 0) {
@@ -129,21 +131,21 @@ document.addEventListener("keyup", function(event) {
     }
     //check if key press is correct
     var keyAnswer = event.key;
-    var oldAnswer = [];
     if((currentWord.answerKey.includes(keyAnswer)) && (!oldAnswer.includes(keyAnswer))) {
         var answerIndex = currentWord.getAnswerIndex(keyAnswer);
         oldAnswer.push(keyAnswer);
         answerIndex.forEach(function(Element) {
-            console.log(Element);
             var currentSpan = document.getElementById("box-text-"+Element);
             currentSpan.textContent = keyAnswer.toUpperCase();
         })
+        console.log(oldAnswer)
         //in case of won
         if (oldAnswer.length === currentWord.answerKey.length) {
+            console.log("win state trigger");
             state = 1;
-            var gameConsoleEle = document.getElementById('game-text');
+            var gameConsoleEle = document.getElementById('score-display');
             while(gameConsoleEle.firstChild) {
-                gameBoardEle.removeChild(gameConsoleEle.firstChild);
+                gameConsoleEle.removeChild(gameConsoleEle.firstChild);
             }
             var winEle = document.createElement('span')
             var winText = document.createTextNode("Congrats, you have win");
@@ -155,7 +157,7 @@ document.addEventListener("keyup", function(event) {
         return;
     } else {
         //fail answer
-        score--;
+        fail--;
         var wrongGuessList = document.getElementById('wrong-guess');
         var wrongGuessSpan = document.createElement('span');
         var wrongGuessText = document.createTextNode(keyAnswer.toUpperCase());
@@ -166,20 +168,30 @@ document.addEventListener("keyup", function(event) {
     }
 })
 
+
 var resetButton = document.getElementById("reset-button")
 resetButton.addEventListener ("click", function(){
-    randomNumber = Math.floor(Math.random()*words.length);
-    currentWord = word(randomNumber)
-    displayWord(currentWord)
-    displayBox(curentWord)
+    //reset global variable
+    oldAnswer = [];
     fail = 5;
     state = 0;
-    var scoreBoardEle = document.getElementById('score');
+    //clear the board
+    var boxBoard = document.getElementById('answer-display')
+    while(boxBoard.firstChild) {
+        boxBoard.removeChild(boxBoard.firstChild);
+    }
+    //get new word
+    randomNumber = Math.floor(Math.random()*words.length);
+    currentWord = words[randomNumber]
+    displayWord(currentWord)
+    displayBox(currentWord)
+    //reset score board
+    var scoreBoardEle = document.getElementById('score-display');
     while(scoreBoardEle.firstChild) {
         scoreBoardEle.removeChild(scoreBoardEle.firstChild);
     }
     var scoreEle = document.createElement('span')
-    var scoreText = document.createTextNode("You have")
+    var scoreText = document.createTextNode("You have ")
     scoreEle.appendChild(scoreText)
     scoreBoardEle.appendChild(scoreEle);
     scoreEle = document.createElement('span');
@@ -189,6 +201,15 @@ resetButton.addEventListener ("click", function(){
     scoreText = document.createTextNode(" tries.");
     scoreEle.appendChild(scoreText)
     scoreBoardEle.appendChild(scoreEle);
+    displayFail();
+    //reset wrong list
+    wrongGuessList = document.getElementById('wrong-guess');
+    while(wrongGuessList.firstChild) {
+        wrongGuessList.removeChild(wrongGuessList.firstChild);
+    }
+    var wrongList = document.createTextNode("Your wrong guess so far: ")
+    wrongGuessList.appendChild(wrongList);
+
 })
 
 
